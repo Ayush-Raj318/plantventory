@@ -1,62 +1,43 @@
-import React from 'react'
+"use client";
+
+import React, { useState } from "react";
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableFooter,
-    TableHead,
-    TableHeader,
-    TableRow,
-  } from "@/components/ui/table";
-  
-  const invoices = [
-    {
-      invoice: "INV001",
-      paymentStatus: "Paid",
-      totalAmount: "$250.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV002",
-      paymentStatus: "Pending",
-      totalAmount: "$150.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV003",
-      paymentStatus: "Unpaid",
-      totalAmount: "$350.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV004",
-      paymentStatus: "Paid",
-      totalAmount: "$450.00",
-      paymentMethod: "Credit Card",
-    },
-    {
-      invoice: "INV005",
-      paymentStatus: "Paid",
-      totalAmount: "$550.00",
-      paymentMethod: "PayPal",
-    },
-    {
-      invoice: "INV006",
-      paymentStatus: "Pending",
-      totalAmount: "$200.00",
-      paymentMethod: "Bank Transfer",
-    },
-    {
-      invoice: "INV007",
-      paymentStatus: "Unpaid",
-      totalAmount: "$300.00",
-      paymentMethod: "Credit Card",
-    },
-  ];
-  
-  export default function InventoryTable() {
-    return (
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { Input } from "./ui/input";
+import { Search } from "lucide-react";
+import { Combobox } from "./ui/combo-box";
+
+const plants = [
+  {
+    id: 1,
+    name: "Plant 1",
+    category: "Category 1",
+    price: 100,
+    stock: 10,
+  },
+];
+
+export default function InventoryTable() {
+  const [selectedCategory, setSelectedCategory] = useState("");
+  return (
+    <div className="w-full">
+      <div className="flex items-center gap-2 py-4">
+        <div className="relative max-w--sm w-full">
+          <Input placeholder="Filter plants..." className="pl-10" />
+          <Search className="absolute h-4 w-4 left-3 top-1/2 transform -translate-y-1/2" />
+        </div>
+
+        <Combobox
+          value={selectedCategory}
+          onChange={(val) => setSelectedCategory(val)}
+        />
+      </div>
       <Table>
         <TableHeader>
           <TableRow>
@@ -65,20 +46,27 @@ import {
             <TableHead>Category</TableHead>
             <TableHead>Price</TableHead>
             <TableHead>Stock</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {plants.map((plant) => (
             <TableRow key={plant.id}>
+              <TableCell>{plant.id}</TableCell>
               <TableCell>{plant.name}</TableCell>
               <TableCell>{plant.category}</TableCell>
               <TableCell>{plant.price}</TableCell>
-              <TableCell className="font-bol">{plant.stock}</TableCell>
+              <TableCell className="font-bold">{plant.stock}</TableCell>
+              <TableCell className="text-right">
+                <div className="flex justify-end space-x-4">
+                  <h1>Edit Button</h1>
+                  <h1>Delete Button</h1>
+                </div>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
-    );
-  }
-  
+    </div>
+  );
+}
