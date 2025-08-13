@@ -24,7 +24,6 @@ async function getPlants(searchTerm?: string) {
       where: whereClause,
     });
 
-    revalidatePath("/");
     return { success: true, userPlants };
   } catch (error) {
     console.log("Error in getPlants", error);
