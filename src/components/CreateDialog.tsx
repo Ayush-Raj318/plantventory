@@ -19,8 +19,8 @@ import { useState } from "react";
 
 import { createPlant } from "@/actions/plant.action";
 import { toast } from "sonner";
+import ImageUpload from "./ImageUpload";
 export default function CreateDialog() {
-
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -40,10 +40,10 @@ export default function CreateDialog() {
     try {
       const newPlant = await createPlant(formData);
       console.log("plant created: ", newPlant);
-      toast.success("Plant created successfully"); 
+      toast.success("Plant created successfully");
     } catch (error) {
       console.error("error creating plant", error);
-      toast.error("Failed to create plant"); 
+      toast.error("Failed to create plant");
     }
   };
 
@@ -118,6 +118,17 @@ export default function CreateDialog() {
                 onChange={(e) => handleChange("price", Number(e.target.value))}
               />
             </div>
+          </div>
+
+          {/*Image Upload*/}
+          <div className="py-5">
+            <ImageUpload
+              endpoint="postImage"
+              value={formData.imageUrl}
+              onChange={(url) => {
+                handleChange("imageUrl", url);
+              }}
+            />
           </div>
 
           <AlertDialogFooter>

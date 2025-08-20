@@ -18,6 +18,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Combobox } from "./ui/combo-box";
 import { Textarea } from "./ui/textarea";
+import ImageUpload from "./ImageUpload";
 
 type Plant = NonNullable<Awaited<ReturnType<typeof getPlantById>>>;
 
@@ -123,6 +124,17 @@ export default function EditDialog({ plant }: EditDialogProps) {
                 onChange={(e) => handleChange("price", Number(e.target.value))}
               />
             </div>
+          </div>
+
+          {/*Image Upload*/}
+          <div className="py-5">
+            <ImageUpload
+              endpoint="postImage"
+              value={formData.imageUrl}
+              onChange={(url) => {
+                handleChange("imageUrl", url);
+              }}
+            />
           </div>
 
           <AlertDialogFooter>
